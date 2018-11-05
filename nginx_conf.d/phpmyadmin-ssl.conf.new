@@ -1,5 +1,5 @@
 upstream phpmyadmin {
-  server db.tundrafizz.com;
+  server phpmyadmin;
 }
 
 server {
@@ -18,8 +18,8 @@ server {
 server {
   listen 443 ssl;
   server_name db.tundrafizz.com;
-  ssl_certificate     /ssl/live/DOMAIN_URL/fullchain.pem;
-  ssl_certificate_key /ssl/live/DOMAIN_URL/privkey.pem;
+  ssl_certificate     /ssl/live/db.tundrafizz.com/fullchain.pem;
+  ssl_certificate_key /ssl/live/db.tundrafizz.com/privkey.pem;
 
   ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
   ssl_prefer_server_ciphers on;

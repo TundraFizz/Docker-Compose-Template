@@ -33,6 +33,27 @@ docker swarm init
 docker stack deploy -c docker-compose.yml tundra
 ```
 
+3. Create an SSL certificate for phpMyAdmin with Let's Encrypt
+```
+docker run -it --rm --name certbot                      \
+-v tundra_ssl:/etc/letsencrypt                          \
+-v tundra_ssl_challenge:/ssl_challenge                  \
+certbot/certbot certonly                                \
+--register-unsafely-without-email --webroot --agree-tos \
+-w /ssl_challenge -d db.tundrafizz.com
+```
+
+4. Update the NGINX config file for phpMyAdmin
+```
+rm nginx_conf.d/phpmyadmin-basic.conf
+mv nginx_conf.d/phpmyadmin-ssl.conf.new nginx_conf.d/phpmyadmin.conf
+```
+
+5. Restart NGINX
+```
+docker container restart $(docker container ls | grep nginx | grep -Eo '^[^ ]+')
+```
+
 # Adding a new service
 
 1. Add the code to it's own directory `SERVICE_NAME`
@@ -67,7 +88,6 @@ docker container restart $(docker container ls | grep nginx | grep -Eo '^[^ ]+')
 ```
 
 7. Once the service is accessible on DOMAIN_URL, create an SSL certificate with Let's Encrypt
-
 ```
 docker run -it --rm --name certbot                      \
 -v tundra_ssl:/etc/letsencrypt                          \
