@@ -1,0 +1,8 @@
+[mysql]
+host=localhost
+user=root
+password=fizz
+
+[mysqldump]
+user=root
+password=fizz
