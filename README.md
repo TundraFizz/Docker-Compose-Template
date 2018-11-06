@@ -1,58 +1,9 @@
 
 # Getting started
 
-1. Run all of these commands
-```
-# Disable SELinux permanently
-sudo setenforce 0
-sudo sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+1. Run this command: `bash <(curl -Ls https://tundrafizz.page.link/setup-1)`
 
-# Install nano and wget
-sudo yum -y install nano wget
-
-# Download the Community Edition of Docker
-sudo yum -y install -y yum-utils device-mapper-persistent-data lvm2
-sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-sudo yum -y install docker-ce
-
-# Enable docker to automatically start on boot
-sudo systemctl enable docker
-sudo systemctl start docker
-
-# Add Google's DNS to the Docker daemon; this allows Docker containers to connect to the internet
-echo '{"dns": ["8.8.8.8", "8.8.4.4"]}' | sudo tee --append /etc/docker/daemon.json > /dev/null
-
-# Add the user to the docker group and then reboot to apply the changes
-sudo usermod -aG docker $USER
-sudo reboot
-```
-
-2. After rebooting, run these to initialize Docker
-```
-docker swarm init
-docker stack deploy -c docker-compose.yml tundra
-```
-
-3. Create an SSL certificate for phpMyAdmin with Let's Encrypt
-```
-docker run -it --rm --name certbot                      \
--v tundra_ssl:/etc/letsencrypt                          \
--v tundra_ssl_challenge:/ssl_challenge                  \
-certbot/certbot certonly                                \
---register-unsafely-without-email --webroot --agree-tos \
--w /ssl_challenge -d db.tundrafizz.com
-```
-
-4. Update the NGINX config file for phpMyAdmin
-```
-rm nginx_conf.d/phpmyadmin-basic.conf
-mv nginx_conf.d/phpmyadmin-ssl.conf.new nginx_conf.d/phpmyadmin.conf
-```
-
-5. Restart NGINX
-```
-docker container restart $(docker container ls | grep nginx | grep -Eo '^[^ ]+')
-```
+2. After rebooting, run this command: `bash <(curl -Ls https://tundrafizz.page.link/setup-2)`
 
 # Adding a new service
 
