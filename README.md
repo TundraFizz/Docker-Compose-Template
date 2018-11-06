@@ -1,9 +1,11 @@
 
 # Getting started
 
-1. Run this command: `bash <(curl -Ls https://tundrafizz.page.link/setup-1)`
-
-2. After rebooting, run this command: `bash <(curl -Ls https://tundrafizz.page.link/setup-2)`
+1. Run the first command below, and then after the system reboots, run the second command
+```
+bash <(curl -Ls https://tundrafizz.page.link/setup-1)
+bash <(curl -Ls https://tundrafizz.page.link/setup-2)
+```
 
 # Adding a new service
 
@@ -15,7 +17,6 @@ docker build -t SERVICE_NAME SERVICE_NAME
 ```
 
 3. Add this to services in `docker-compose.yml`
-
 ```
   SERVICE_NAME:
     image: SERVICE_NAME
