@@ -10,31 +10,21 @@ Note: The name of the Docker stack that will be created is `tundra` and phpMyAdm
 
 # Adding a new service
 
-1. Add the code to it's own directory `SERVICE_NAME`
-
-2. Build the Docker image
-```
-docker build -t SERVICE_NAME SERVICE_NAME
-```
-
-3. Create a Docker service
-```
-docker service create --network tundra_default --name sample_app sample_app
-```
-
-4. Run this command
+1. Add the code to it's own directory `SERVICE_NAME` and then run the command below
 ```
 bash <(curl -Ls https://tundrafizz.page.link/setup-ssl)
 ```
 This will do the following:
  * Prompt the user for SERVICE_NAME and DOMAIN_URL
+ * Build the Docker image
+ * Create a Docker service
  * Download a basic NGINX config file, and modify the file with the user's inputs
  * Restart NGINX
  * Run Let's Encrypt
  * Download an NGINX config file for SSL, and modify the file with the user's inputs
  * Restart NGINX
 
-# How to update a service
+# Updating an existing service
 
 1. Replace the code with its updated version in its directory `SERVICE_NAME`
 
