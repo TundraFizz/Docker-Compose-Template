@@ -1,11 +1,12 @@
 
 # Getting started
 
-1. Run the first command below, and then after the system reboots, run the second command
+Run the first command below, and then the second command after the system reboots
 ```
 bash <(curl -Ls https://tundrafizz.page.link/setup-1)
 bash <(curl -Ls https://tundrafizz.page.link/setup-2)
 ```
+Note: The name of the Docker stack that will be created is `tundra` and phpMyAdmin will used the domain name `db.tundrafizz.com`
 
 # Adding a new service
 
@@ -16,50 +17,22 @@ bash <(curl -Ls https://tundrafizz.page.link/setup-2)
 docker build -t SERVICE_NAME SERVICE_NAME
 ```
 
-3. Add this to services in `docker-compose.yml`
+3. Create a Docker service
 ```
-  SERVICE_NAME:
-    image: SERVICE_NAME
-```
-
-4. Create a basic .conf in `nginx_conf.d`, replacing `SERVICE_NAME` and `DOMAIN_URL`
-```
-curl -Lso nginx_conf.d/SERVICE_NAME.conf https://tundrafizz.page.link/conf-basic
-sed -i 's/SERVICE_NAME/111111111111/g' nginx_conf.d/SERVICE_NAME.conf
-sed -i 's/DOMAIN_URL/2222222222/g' nginx_conf.d/SERVICE_NAME.conf
+docker service create --network tundra_default --name sample_app sample_app
 ```
 
-5. Update the Docker stack
+4. Run this command
 ```
-docker stack deploy -c docker-compose.yml tundra
+bash <(curl -Ls https://tundrafizz.page.link/fg2dh3gf)
 ```
-
-6. Restart NGINX
-```
-docker container restart $(docker container ls | grep nginx | grep -Eo '^[^ ]+')
-```
-
-7. Once the service is accessible on DOMAIN_URL, create an SSL certificate with Let's Encrypt
-```
-docker run -it --rm --name certbot                      \
--v tundra_ssl:/etc/letsencrypt                          \
--v tundra_ssl_challenge:/ssl_challenge                  \
-certbot/certbot certonly                                \
---register-unsafely-without-email --webroot --agree-tos \
--w /ssl_challenge -d DOMAIN_URL
-```
-
-8. Update the .conf file in `nginx_conf.d` for SSL, replacing `SERVICE_NAME` and `DOMAIN_URL`
-```
-curl -Lso nginx_conf.d/SERVICE_NAME.conf https://tundrafizz.page.link/conf-ssl
-sed -i 's/SERVICE_NAME/111111111111/g' nginx_conf.d/SERVICE_NAME.conf
-sed -i 's/DOMAIN_URL/2222222222/g' nginx_conf.d/SERVICE_NAME.conf
-```
-
-9. Restart NGINX
-```
-docker container restart $(docker container ls | grep nginx | grep -Eo '^[^ ]+')
-```
+This will do the following:
+ * Prompt the user for SERVICE_NAME and DOMAIN_URL
+ * Download a basic NGINX config file, and modify the file with the user's inputs
+ * Restart NGINX
+ * Run Let's Encrypt
+ * Download an NGINX config file for SSL, and modify the file with the user's inputs
+ * Restart NGINX
 
 # How to update a service
 
