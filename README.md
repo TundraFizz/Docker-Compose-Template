@@ -24,7 +24,7 @@ docker service create --network tundra_default --name sample_app sample_app
 
 4. Run this command
 ```
-bash <(curl -Ls https://tundrafizz.page.link/fg2dh3gf)
+bash <(curl -Ls https://tundrafizz.page.link/setup-ssl)
 ```
 This will do the following:
  * Prompt the user for SERVICE_NAME and DOMAIN_URL
