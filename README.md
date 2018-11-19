@@ -34,21 +34,23 @@ docker container restart "$(docker container ls | grep nginx | grep -Eo '^[^ ]+'
 
 # Adding a new service
 
-1. Build the Docker image
+1. Set a service name and domain url
 ```
-docker build -t "example_app" "example_app"
+SERVICE_NAME="example_app"
+DOMAIN_URL="example.com"
 ```
 
-2. Create a Docker service
+2. Build the Docker image
+```
+docker build -t "$SERVICE_NAME" "$SERVICE_NAME"
+```
+
+3. Create a Docker service and the NGINX config file, and then restart NGINX
 ```
 docker service create --network tundra_default --name "$SERVICE_NAME" "$SERVICE_NAME"
 curl -Lso "nginx_conf.d/$SERVICE_NAME.conf" "https://tundrafizz.page.link/conf-basic"
 sed -i "s/SERVICE_NAME/$SERVICE_NAME/g" "nginx_conf.d/$SERVICE_NAME.conf"
 sed -i "s/DOMAIN_URL/$DOMAIN_URL/g" "nginx_conf.d/$SERVICE_NAME.conf"
-```
-
-3. Restart NGINX
-```
 docker container restart "$(docker container ls | grep nginx | grep -Eo '^[^ ]+')"
 ```
 
