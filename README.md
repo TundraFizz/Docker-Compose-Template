@@ -82,3 +82,4 @@ docker build -t "$SERVICE_NAME" "$SERVICE_NAME"
 ```
 docker container stop $(docker container ls | grep "$SERVICE_NAME" | grep -Eo '^[^ ]+')
 ```
+
