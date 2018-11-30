@@ -42,7 +42,8 @@ DOMAIN_URL="example.com"
 
 2. Build the Docker image
 ```
-docker build -t "$SERVICE_NAME" "$SERVICE_NAME"
+docker build -t "$SERVICE_NAME" "$SERVICE_NAME" --build-arg MODE=dev
+docker build -t "$SERVICE_NAME" "$SERVICE_NAME" --build-arg MODE=prod
 ```
 
 3. Create a Docker service and the NGINX config file, and then restart NGINX
@@ -75,7 +76,8 @@ docker container restart "$(docker container ls | grep nginx | grep -Eo '^[^ ]+'
 
 2. Build the new Docker image
 ```
-docker build -t "$SERVICE_NAME" "$SERVICE_NAME"
+docker build -t "$SERVICE_NAME" "$SERVICE_NAME" --build-arg MODE=dev
+docker build -t "$SERVICE_NAME" "$SERVICE_NAME" --build-arg MODE=prod
 ```
 
 3. Restart the Docker container
