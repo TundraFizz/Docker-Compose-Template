@@ -19,15 +19,12 @@ services:
       - "ssl_challenge:/ssl_challenge"
       - "ssl:/ssl"
   mysql:
-    image: mysql
+    image: mariadb
     volumes:
       - "./single_files/mysql.cnf:/mysql.cnf"
       - "sql_storage:/var/lib/mysql"
     environment:
       MYSQL_ROOT_PASSWORD: fizz
-    entrypoint:
-      - /entrypoint.sh
-      - "--default-authentication-plugin=mysql_native_password"
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     volumes:
