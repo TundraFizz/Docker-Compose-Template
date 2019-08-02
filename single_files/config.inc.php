@@ -21,12 +21,14 @@ $vars = array(
     'PMA_CONTROLPASS',
     'PMA_QUERYHISTORYDB'
 );
+
 foreach ($vars as $var) {
     $env = getenv($var);
     if (!isset($_ENV[$var]) && $env !== false) {
         $_ENV[$var] = $env;
     }
 }
+
 if (isset($_ENV['PMA_QUERYHISTORYDB'])) {
     $cfg['QueryHistoryDB'] = boolval($_ENV['PMA_QUERYHISTORYDB']);
 }
@@ -121,6 +123,7 @@ $i--;
 /* Uploads setup */
 $cfg['UploadDir'] = '';
 $cfg['SaveDir'] = '';
+$cfg['NavigationTreeEnableGrouping'] = false;
 
 /* Include User Defined Settings Hook */
 if (file_exists('/etc/phpmyadmin/config.user.inc.php')) {
