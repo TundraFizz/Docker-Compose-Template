@@ -36,7 +36,7 @@ sed -i "s/DOMAIN_URL/$DOMAIN_URL/g" "nginx_conf.d/phpmyadmin.conf"
 docker container restart "$(docker container ls | grep nginx | grep -Eo '^[^ ]+')"
 ```
 
-# Adding a new service
+# Adding a new service (Domain name with SSL)
 
 1. Set a service name and domain url
 ```
@@ -69,6 +69,28 @@ certbot/certbot certonly                                \
 -w /ssl_challenge -d "$DOMAIN_URL"
 
 curl -Lso "nginx_conf.d/$SERVICE_NAME.conf" "https://tundrafizz.page.link/conf-ssl"
+sed -i "s/SERVICE_NAME/$SERVICE_NAME/g" "nginx_conf.d/$SERVICE_NAME.conf"
+sed -i "s/DOMAIN_URL/$DOMAIN_URL/g" "nginx_conf.d/$SERVICE_NAME.conf"
+docker container restart "$(docker container ls | grep nginx | grep -Eo '^[^ ]+')"
+```
+
+# Adding a new service (No domain name or SSL)
+
+1. Set a service name
+```
+SERVICE_NAME="example_app"
+```
+
+2. Build the Docker image
+```
+docker build -t "$SERVICE_NAME" "$SERVICE_NAME" --build-arg MODE=dev
+docker build -t "$SERVICE_NAME" "$SERVICE_NAME" --build-arg MODE=prod
+```
+
+3. Create a Docker service and the NGINX config file, and then restart NGINX
+```
+docker service create --network tundra_default --name "$SERVICE_NAME" "$SERVICE_NAME"
+curl -Lso "nginx_conf.d/$SERVICE_NAME.conf" "https://tundrafizz.page.link/conf-basic"
 sed -i "s/SERVICE_NAME/$SERVICE_NAME/g" "nginx_conf.d/$SERVICE_NAME.conf"
 sed -i "s/DOMAIN_URL/$DOMAIN_URL/g" "nginx_conf.d/$SERVICE_NAME.conf"
 docker container restart "$(docker container ls | grep nginx | grep -Eo '^[^ ]+')"
