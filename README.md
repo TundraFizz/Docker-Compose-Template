@@ -1,11 +1,15 @@
 
-# Getting started
+# Initializing the system
 
 Run the first command below, and then the second command after the system reboots
 ```
 bash <(curl -Ls https://tundrafizz.page.link/setup-1)
 bash <(curl -Ls https://tundrafizz.page.link/setup-2)
 ```
+
+# Setting up the local database
+
+Skip this section if you don't need a local database
 
 Modify phpmyadmin-basic.conf and restart NGINX so that it gets the new config domain
 ```
