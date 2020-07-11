@@ -129,3 +129,6 @@ $cfg['NavigationTreeEnableGrouping'] = false;
 if (file_exists('/etc/phpmyadmin/config.user.inc.php')) {
     include('/etc/phpmyadmin/config.user.inc.php');
 }
+
+/* Disable navigation tree grouping */
+$cfg['NavigationTreeEnableGrouping'] = false;
