@@ -14,6 +14,7 @@ Skip this section if you don't need a local database
 Modify phpmyadmin-basic.conf and restart NGINX so that it gets the new config domain
 ```
 DOMAIN_URL="db.example.com"
+cd docker
 sed -i "s/DOMAIN_URL/$DOMAIN_URL/g" "nginx_conf.d/phpmyadmin-basic.conf"
 docker container restart "$(docker container ls | grep nginx | grep -Eo '^[^ ]+')"
 ```
