@@ -112,7 +112,10 @@ for ($i = 1; isset($hosts[$i - 1]); $i++) {
       $cfg['Servers'][$i]['controlpass'] = $_ENV['PMA_CONTROLPASS'];
     }
 
+    # Hide databases I don't care about
     $cfg['Servers'][$i]['hide_db'] = 'mysql|information_schema|performance_schema|sys|phpmyadmin';
+    # Turn SSL on (nevermind this breaks it with the error: "mysqli::real_connect(): (HY000/2006): MySQL server has gone away")
+    # $cfg['Servers'][$i]['ssl'] = true;
 }
 /*
  * Revert back to last configured server to make
