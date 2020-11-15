@@ -39,6 +39,7 @@ server {
 
   location / {
     add_header 'Access-Control-Allow-Origin' '*';
+    proxy_set_header X-Forwarded-Proto https;
     proxy_pass http://phpmyadmin;
   }
 }
