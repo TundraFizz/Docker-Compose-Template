@@ -77,6 +77,10 @@ docker container restart "$(docker container ls | grep nginx | grep -Eo '^[^ ]+'
 
 # Adding a new service (No domain name or SSL)
 
+0. Before adding a new service...
+* Make sure that a directory with the service name exists in the `docker` folder
+* That directory contains four items; `config.yml`, `Dockerfile`, `package.json`, and an empty folder `backend`
+
 1. Set a service name
 ```
 SERVICE_NAME="example_app"
